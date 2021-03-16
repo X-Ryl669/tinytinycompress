@@ -104,7 +104,11 @@ The source file used for this benchmark is a G-Code file of 309 564 bytes
 |-------------|------------------------|-------------------|--------------------|----------------------|
 | Heatshrink  | 1964 bytes (ARM)       | 1336 bytes (ARM)  | < 40 bytes (claim) | 135 398 bytes        |
 | Heatshrink  | 2176 bytes (AVR)       | 1268 bytes (AVR)  | < 40 bytes (claim) |                      |
-| T2C         | 528 bytes (ARM)        | 292 bytes (ARM)   | either 512 or 256  | 196 217 bytes        |
-| T2C         | 618 bytes (AVR)        | 300 bytes (AVR)   | either 512 or 256  |                      |
+| T2C         | 528 bytes (ARM)        | 292 bytes (ARM)   | 512 bytes (temp)   | 196 217 bytes        |
+| T2C         | 618 bytes (AVR)        | 300 bytes (AVR)   | 512 bytes (temp)   |                      |
+| T2C(128)    | 528 bytes (ARM)        | 292 bytes (ARM)   | 256 bytes (temp)   | 199 021 bytes        |
+| T2C(128)    | 618 bytes (AVR)        | 300 bytes (AVR)   | 256 bytes (temp)   |                      |
+
+T2C can be build with a smaller hashtable (down to 128 buckets / 256 bytes) but it implies a smaller compression factor.
 
 
