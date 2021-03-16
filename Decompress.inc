@@ -18,7 +18,7 @@
 #pragma once
 
 template <size_t LempelHashTableBucketCount>
-size_t T2C<LempelHashTableBucketCount>::decompress(const u8 * source, size_t slen, u8 * dest, size_t dlen)
+size_t T2CT<LempelHashTableBucketCount>::decompress(const u8 * source, size_t slen, u8 * dest, size_t dlen)
 {
     const u8 * send = source + slen;
     size_t ulen = 0;

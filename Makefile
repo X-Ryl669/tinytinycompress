@@ -6,6 +6,8 @@ libT2C.o: T2C.hpp Compress.inc Decompress.inc
 t2c: tests/main.cpp libT2C.o
 	$(CXX) $(CXXFLAGS) -c tests/main.cpp -o tests/main.o
 	$(CXX) $(CXXFLAGS) -o $@ tests/main.o
+	$(CXX) $(CXXFLAGS) -DHashTableSize=128 -c tests/main.cpp -o tests/main.o
+	$(CXX) $(CXXFLAGS) -o $@_128 tests/main.o
 
 clean:
 	-rm libT2C.o

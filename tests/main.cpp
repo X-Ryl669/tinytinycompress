@@ -23,6 +23,9 @@
 
 int help(const char * name) { return fprintf(stderr, "Usage is: %s -c/-d [inFile] [outFile]\n", name); }
 
+#ifndef HashTableSize
+    #define HashTableSize 256
+#endif
 
 int main(int argc, char ** argv)
 {
@@ -35,6 +38,9 @@ int main(int argc, char ** argv)
     size_t inSize = ftell(in);
     fseek(in, 0, SEEK_SET);
 
+    // The compression algorithm we are using (only important for the compressor, the decompressor doesn't care here)
+    typedef T2CT<HashTableSize> T2C;
+
     // Allocate the memory to store the source file
     u8 * inBuffer = new u8[inSize];
     if (fread(inBuffer, 1, inSize, in) != inSize) return fprintf(stderr, "Failed to read input file\n");
@@ -42,10 +48,10 @@ int main(int argc, char ** argv)
     if (strncmp(argv[1], "-c", 2) == 0) {
         // Compress here
         // First pass to figure out the required output size:
-        size_t outSize = T2C<>::compress(inBuffer, inSize, 0);
+        size_t outSize = T2C::compress(inBuffer, inSize, 0);
         u8 * outBuffer = new u8[outSize];
         // Second pass to capture the compressed file
-        outSize = T2C<>::compress(inBuffer, inSize, outBuffer);
+        outSize = T2C::compress(inBuffer, inSize, outBuffer);
         FILE * out = fopen(argv[3], "wb");
         if (!out) return fprintf(stderr, "Can not open output file: %s\n", argv[3]);
         if (fwrite(outBuffer, 1, outSize, out) != outSize) return fprintf(stderr, "Failed to write output file\n");
@@ -57,10 +63,10 @@ int main(int argc, char ** argv)
     else if (strncmp(argv[1], "-d", 2) == 0) {
         // Decompress here
         // First pass to figure out the required output size:
-        size_t outSize = T2C<>::decompress(inBuffer, inSize, 0, 0);
+        size_t outSize = T2C::decompress(inBuffer, inSize, 0, 0);
         u8 * outBuffer = new u8[outSize];
         // Second pass to capture the decompressed file
-        outSize = T2C<>::decompress(inBuffer, inSize, outBuffer, outSize);
+        outSize = T2C::decompress(inBuffer, inSize, outBuffer, outSize);
         FILE * out = fopen(argv[3], "wb");
         if (!out) return fprintf(stderr, "Can not open output file: %s\n", argv[3]);
         if (fwrite(outBuffer, 1, outSize, out) != outSize) return fprintf(stderr, "Failed to write output file\n");

@@ -19,8 +19,11 @@
 
 template <size_t LempelHashTableBucketCount>
 template<typename AllocatorIF>
-size_t T2C<LempelHashTableBucketCount>::compress(const void * source, size_t len, u8 * dest, AllocatorIF * alloc)
+size_t T2CT<LempelHashTableBucketCount>::compress(const void * source, size_t len, u8 * dest, AllocatorIF * alloc)
 {
+    static_assert(  LempelHashTableBucketCount + MatchMin >= MatchMax 
+                    && ((LempelHashTableBucketCount - 1) & LempelHashTableBucketCount) == 0, "The hash table is too small to find matches or is not a power of 2");
+
     typedef unsigned short u16;
     constexpr const size_t hashTableSize = sizeof(u16) * LempelHashTableBucketCount;
     int copyMask = 1 << 7;
@@ -40,6 +43,7 @@ size_t T2C<LempelHashTableBucketCount>::compress(const void * source, size_t len
             if (dlen >= len - 1 - 2 * 8) 
             {
                 if (dest) ::memcpy(dest, source, len);
+                if (alloc) alloc->release(hashTable);
                 return len;
             }
             copyMask = 1;
@@ -89,5 +93,6 @@ size_t T2C<LempelHashTableBucketCount>::compress(const void * source, size_t len
             dlen++; src++;
         }
     }
+    if (alloc) alloc->release(hashTable);
     return dlen;
 }

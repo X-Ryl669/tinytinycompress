@@ -33,15 +33,15 @@ typedef unsigned char u8;
     The engine does not need that the returned memory is initialized */
 struct Allocator
 {
-    u8 * alloc(size_t size) { return (u8*)::malloc(size); }
-    void release(u8 * ptr) { return ::free(ptr); }
+    void * alloc(size_t size) { return ::malloc(size); }
+    void release(void * ptr) { return ::free(ptr); }
 };
 
 
 /** The LZJB compression and decompression engine 
     @param LempelHashTableBucketCount   The number of buckets in the Lempel hash table, each bucket takes 16 bits. This is the amount of internal memory used by the algorithm. */
 template <size_t LempelHashTableBucketCount = 256>
-class T2C
+class T2CT
 {
     /** The algorithm parameters */
     enum Parameters
