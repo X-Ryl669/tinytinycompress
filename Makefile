@@ -1,4 +1,4 @@
-CXXFLAGS=-fPIC -O0 -ggdb3
+CXXFLAGS=-Os -ggdb3
 
 libT2C.o: T2C.hpp Compress.inc Decompress.inc
 	$(CXX) $(CXXFLAGS) -c T2C.hpp -o $@

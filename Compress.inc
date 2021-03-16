@@ -17,6 +17,11 @@
 
 #pragma once
 
+#if defined(__GNUC__) && !defined(alloca)
+  #define alloca(size)   __builtin_alloca (size)
+#endif
+
+
 template <size_t LempelHashTableBucketCount>
 template<typename AllocatorIF>
 size_t T2CT<LempelHashTableBucketCount>::compress(const void * source, size_t len, u8 * dest, AllocatorIF * alloc)

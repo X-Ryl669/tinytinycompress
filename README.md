@@ -98,10 +98,13 @@ no need to initialize the Lempel history; not doing so saves time.
 
 # Benchmark
 
+The source file used for this benchmark is a G-Code file of 309 564 bytes
+
 |  Algorithm  | Compressor binary size | Decompressor size | Internal memory    | Compressed data size |
 |-------------|------------------------|-------------------|--------------------|----------------------|
-| Heatshrink  | 1964 bytes (ARM)       | 1336 bytes (ARM)  | < 40 bytes (claim) |                      |
+| Heatshrink  | 1964 bytes (ARM)       | 1336 bytes (ARM)  | < 40 bytes (claim) | 135 398 bytes        |
 | Heatshrink  | 2176 bytes (AVR)       | 1268 bytes (AVR)  | < 40 bytes (claim) |                      |
-| T2C         |                        |                   |                    |                      |
-| T2C         |                        |                   |                    |                      |
+| T2C         | 528 bytes (ARM)        | 292 bytes (ARM)   | either 512 or 256  | 196 217 bytes        |
+| T2C         | 618 bytes (AVR)        | 300 bytes (AVR)   | either 512 or 256  |                      |
+
 

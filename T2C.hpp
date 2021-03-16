@@ -24,6 +24,7 @@
 // We need memcpy too
 #include <string.h>
 
+
 /** Define this only if you only need the decompressor */
 // #define OnlyDecompressor
 
