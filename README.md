@@ -111,4 +111,5 @@ The source file used for this benchmark is a G-Code file of 309 564 bytes
 
 T2C can be build with a smaller hashtable (down to 128 buckets / 256 bytes) but it implies a smaller compression factor.
 
+On average, T2C is 8x faster to compress and 4.5x faster to decompress then Heatshrink
 
