@@ -113,3 +113,7 @@ T2C can be build with a smaller hashtable (down to 128 buckets / 256 bytes) but 
 
 On average, T2C is 8x faster to compress and 4.5x faster to decompress then Heatshrink
 
+
+# Documentation
+
+More information about this code can be found on [this blog page](https://blog.cyril.by/en/software/tinytinycompressor-t2c).
