@@ -60,7 +60,8 @@ class T2CT
 
 public:
     #ifndef OnlyDecompressor
-        /** Compute a hash from the given bytes */
+        /** Compute a hash from the given bytes.
+            @warning It access src, src+1, src+2, so check beforehand if the source buffer exists at these locations  */
         static inline size_t computeHash(const u8 * src) { return (src[0] + 13) ^ (src[1] - 13) ^ src[2]; }
 
         /** Compress the given source buffer into the destination buffer
@@ -78,9 +79,9 @@ public:
         @param src  A pointer to a source buffer of slen bytes
         @param slen The length of the buffer pointed by src in bytes
         @param dest A pointer to the destination buffer allocated to at least dlen bytes
-        @param dlen  The length of the buffer pointed by dest in bytes
+        @param dlen The length of the buffer pointed by dest in bytes
         @return The used destination size in bytes. At worst the destination buffer will use (slen * max compression ratio) bytes.
-        It's safe to call with a null dest pointer to query the required size for decompressed buffer */
+        It's safe to call with a null dest pointer and dlen set to 0 to query the required size for decompressed buffer */
     static size_t decompress(const u8 * src, size_t slen, u8 * dest, size_t dlen);
 };
 
